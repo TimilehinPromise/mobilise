@@ -26,7 +26,7 @@ public class StartUpService {
 
     public CompletableFuture<Void> loadDefaultData() {
         return runAsync(() -> {
-
+        // ADD DEFAULT BOOKS ON STARTUP
             if (bookRepository.findAll().isEmpty()){
              Book book1 = Book.builder()
                      .author("Craig Walls")
