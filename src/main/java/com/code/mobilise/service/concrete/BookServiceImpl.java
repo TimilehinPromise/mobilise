@@ -29,6 +29,8 @@ public class BookServiceImpl implements BookService {
 
     private final String BOOK_ALREADY_EXIST = "BOOK WITH TITLE ALREADY EXIST";
 
+    private final int DEFAULT_SIZE =10;
+
 
     @Override
     public ResponseMessage createBook(BookDTO dto){
@@ -69,6 +71,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Page<BookResponse> getAllBooks(int size, int pageIndex){
+        size = setPageRequestIfInvalid(size);
         return bookRepository.findAll(PageRequest.of(pageIndex,size)).map(Book::toModel);
     }
 
@@ -93,6 +96,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<BookResponse> searchBooks(String keyword,
                                           int index, int size){
+
+        size = setPageRequestIfInvalid(size);
         //get Spec
         Specification<Book> spec =  searchInBookWithKeyword(keyword);
 
@@ -102,6 +107,14 @@ public class BookServiceImpl implements BookService {
 
     private ResponseMessage createResponseMessage(String message) {
         return ResponseMessage.builder().message(message).build();
+    }
+
+   private int setPageRequestIfInvalid(int size){
+        //If invalid size is set, set to default
+        if (size <1){
+            size =DEFAULT_SIZE;
+        }
+      return size;
     }
 
 
