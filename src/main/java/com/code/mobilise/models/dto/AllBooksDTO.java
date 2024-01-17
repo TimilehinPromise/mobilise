@@ -12,7 +12,7 @@ import javax.validation.constraints.Min;
 public class AllBooksDTO {
 
     @Min(value = 0 ,message = "size cannot be less than zero")
-    private int size ;
+    private int size = 10; // Default size
     @Min(value = 0 ,message = "page index cannot be less than zero")
-    private int index;
+    private int index = 0; // Default page index
 }
