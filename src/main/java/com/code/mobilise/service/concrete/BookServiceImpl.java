@@ -69,7 +69,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Page<BookResponse> getAllBooks(int size, int pageIndex){
-
         return bookRepository.findAll(PageRequest.of(pageIndex,size)).map(Book::toModel);
     }
 
